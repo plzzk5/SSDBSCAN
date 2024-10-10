@@ -21,7 +21,6 @@ class SSDBSSCN(DBSCAN):
         cDist_expanded_j = np.expand_dims(cDist, axis=0)
         rDist = np.maximum(np.maximum(cDist_expanded_i, cDist_expanded_j), distance_matrix)
 
-        # A list of all core samples found.
         ssdbscan_inner(rDist, L)
         self.labels_ = ssdbscan_inner(rDist, L)
 
@@ -33,6 +32,7 @@ def ssdbscan_inner(rDist, L):
             continue
         cluster = [i]
         distances = []
+        
         while True:
             row_mask, col_mask = np.zeros(L.shape[0], dtype=bool), np.ones(L.shape[0], dtype=bool)
             row_mask[cluster], col_mask[cluster] = True, False
